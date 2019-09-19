@@ -20,9 +20,7 @@
 </head>
 
 <body>
-	<!-- WRAPPER -->
 	<div id="wrapper">
-		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
 				<a><img src="{{URL::asset('image/admin.png')}}" alt="Klorofil Logo" class="img-responsive logo"></a>
@@ -42,8 +40,6 @@
 				</div>
 			</div>
 		</nav>
-		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
@@ -70,8 +66,6 @@
 				</nav>
 			</div>
 		</div>
-		<!-- END LEFT SIDEBAR -->
-		<!-- MAIN -->
 		<div class="main">
 			<div class="main-content">
 				<div class="panel">
@@ -86,11 +80,8 @@
 				</div>
 			</div>
 		</div>
-		<!-- END MAIN -->
 		<div class="clearfix"></div>
 	</div>
-	<!-- END WRAPPER -->
-	<!-- Javascript -->
 	<script type="text/javascript" src="{{URL::asset('assets/js/jquery-1.12.0.min.js')}}"></script>
 	<script type="text/javascript" src="{{URL::asset('assets/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{URL::asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -98,17 +89,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-
 	<script>
 		function Logout() {
 		firebase.auth().signOut()
-		var id_logout = $('#id_logout').val();
             $.ajax({
                 type: "get",
                 url: "{{ url('logout') }}",
                 data: {
-                    _token: "{{csrf_token()}}",
-                    id_logout: id_logout
+                    _token: "{{csrf_token()}}"
                 },
                 success: function (response) {
 					const Toast = Swal.fire({

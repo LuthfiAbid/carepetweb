@@ -73,7 +73,7 @@
                     <button type="button" class="btn btn-default waves-effect update-data-from-delete-form"
                         data-dismiss="modal">Close</button>
                     <button type="button"
-                        class="btn btn-success waves-effect waves-light updateData">Update</button>
+                        class="btn btn-success waves-effect waves-light updateUserRecord">Update</button>
                 </div>
             </div>
         </div>
@@ -104,8 +104,8 @@ $(function () {
     obj = [];
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [order.name,order.startTime,order.endTime,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" class="btn btn-outline-success updateUserRecord" data-id="'+index+'">Update</a>\
-        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-outline-danger removeData" data-id="'+index+'">Delete</a>'];
+            obj2 = [order.name,order.startTime,order.endTime,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
+        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Delete</a>'];
             obj.push(obj2);
         }
         });
@@ -122,7 +122,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
 
   } else {
-    window.location.href = "{{url('login')}}";
+    window.location.href = "{{url('loginadmin')}}";
   }
 });
 

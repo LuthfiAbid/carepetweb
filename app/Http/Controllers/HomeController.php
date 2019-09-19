@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use Cartalyst\Alerts\Native\Facades\Alert;
 use Illuminate\Http\Request;
 use Session;
+use Redirect;
 
 class HomeController extends Controller
 {
 //-----------------------------------Landing Page----------------------------------------------//
     function index()
     {
-        return view('admin.dashboard');
+        print_r(Session::get('login'));
+        if(!Session::get('login')){
+            Alert::error('Error message', 'right-sidebar');
+            return redirect('login');
+        }else{
+            return view('admin.dashboard');
+        }
     }
 //---------------------------------------------------------------------------------------------//
     public function users()
@@ -23,10 +30,6 @@ class HomeController extends Controller
         }else{
         return view('admin.welcome');
         }
-    }
-    public function login()
-    {
-        return view('login');
     }
     public function loginPost(Request $request)
     {
@@ -49,5 +52,10 @@ class HomeController extends Controller
         }else{
         return view('admin.pending');
         }
+    }
+    public function logout()
+    {
+        Session::flush();
+        return redirect('login');
     }
 }

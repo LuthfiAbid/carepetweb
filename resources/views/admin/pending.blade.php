@@ -57,23 +57,19 @@
 </form>
 <!-- Update Model -->
 <form action="" method="POST" class="users-update-record-model form-horizontal">
-    <div id="update-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
-        aria-hidden="true" style="display: none;">
+    <div id="update-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog" style="width:55%;">
             <div class="modal-content" style="overflow: hidden;">
                 <div class="modal-header">
                     <h4 class="modal-title" id="custom-width-modalLabel">Update Record</h4>
-                    <button type="button" class="close update-data-from-delete-form" data-dismiss="modal"
-                        aria-hidden="true">×</button>
+                    <button type="button" class="close update-data-from-delete-form" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="updateBody">
-
+                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect update-data-from-delete-form"
-                        data-dismiss="modal">Close</button>
-                    <button type="button"
-                        class="btn btn-success waves-effect waves-light updateUserRecord">Update</button>
+                    <button type="button" class="btn btn-default waves-effect update-data-from-delete-form" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light updateUserRecord">Update</button>
                 </div>
             </div>
         </div>
@@ -104,7 +100,7 @@ $(function () {
     obj = [];
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [order.name,order.startTime,order.endTime,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" class="btn btn-outline-success updateUserRecord" data-id="'+index+'">Update</a>\
+            obj2 = [order.name,order.startTime,order.endTime,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-outline-success updateData" data-id="'+index+'">Update</a>\
         		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-outline-danger removeData" data-id="'+index+'">Reject</a>'];
             obj.push(obj2);
         }
@@ -122,7 +118,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
 
   } else {
-    window.location.href = "{{url('login')}}";
+    window.location.href = "{{url('loginadmin')}}";
   }
 });
 
@@ -176,7 +172,7 @@ $('body').on('click', '.updateData', function() {
 
 $('.updateUserRecord').on('click', function() {
     firebase.database().ref('order/' +updateID).on('value', function(snapshot) {
-    var values = $(".users-update-record-model").serializeArray();
+    // var values = $(".users-update-record-model").serializeArray();
     var data = snapshot.val();
 	var postData = {
         orderid:data.orderid,

@@ -14,15 +14,21 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/', function(){
+    return view('landing.index');
+});
+
+Route::get('loginadmin', function(){
+    return view('login');
+});
+
 Route::get('dataOrder', 'HomeController@users');
-Route::get('login', 'HomeController@login');
 Route::get('loginPost', 'HomeController@loginPost');
 
 Route::get('home','HomeController@index');
 
 Route::get('pendingOrder','HomeController@pending');
 
-Route::get('/', function(){
-    return view('index');
-});
+Route::get('logout','HomeController@logout');
+
 
