@@ -2,25 +2,15 @@
 <html lang="z{{URL::asset('assets/template/xx" class="no-js')}}">
 
 <head>
-  <!-- Mobile Specific Meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Favicon-->
   <link rel="shortcut icon" href="img/fav.png">
-  <!-- Author Meta -->
   <meta name="author" content="CodePixar">
-  <!-- Meta Description -->
   <meta name="description" content="">
-  <!-- Meta Keyword -->
   <meta name="keywords" content="">
-  <!-- meta character set -->
   <meta charset="UTF-8">
-  <!-- Site Title -->
   <title>Carepet</title>
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-  <!--
-    CSS
-    ============================================= -->
   <link rel="stylesheet" href="{{URL::asset('assets/template/css/linearicons.css')}}">
   <link rel="stylesheet" href="{{URL::asset('assets/template/css/font-awesome.min.css')}}">
   <link rel="stylesheet" href="{{URL::asset('assets/template/css/jquery.DonutWidget.min.css')}}">
@@ -28,16 +18,7 @@
   <link rel="stylesheet" href="{{URL::asset('assets/template/css/owl.carousel.css')}}">
   <link rel="stylesheet" href="{{URL::asset('assets/template/css/main.css')}}">
 </head>
-{{-- <style>
-  .row justify-content-end align-items-center d-flex no-padding
-  {
-    background-color:aqua;
-  }
-  </style> --}}
-
 <body>
-
-  <!-- Start Header Area -->
   <header class="default-header">
     <nav class="navbar navbar-expand-lg  navbar-light">
       <div class="container">
@@ -60,9 +41,7 @@
       </div>
     </nav>
   </header>
-  <!-- End Header Area -->
 
-  <!-- start banner Area -->
   <section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="assets/img/logo/pet.jpg">
     <div class="overlay-bg overlay"></div>
     <div class="container">
@@ -77,10 +56,7 @@
       </div>
     </div>
   </section>
-  <!-- End banner Area -->
 
-
-  <!-- start service Area-->
   <section class="service-area pt-100 pb-150" id="service">
     <div class="container">
       <div class="row d-flex justify-content-center">
@@ -110,10 +86,7 @@
       </div>
     </div>
   </section>
-  <!-- end service Area-->
 
-
-  <!-- Start About Area -->
   <section class="about-area">
     <div class="container-fluid">
       <div class="row justify-content-end align-items-center d-flex no-padding">
@@ -131,9 +104,7 @@
       </div>
     </div>
   </section>
-  <!-- End About Area -->
 
-  <!-- Start team Area -->
   <section class="team-area section-gap" id="team">
     <div class="container">
       <div class="row d-flex justify-content-center">
@@ -205,10 +176,7 @@
       </div>
     </div>
   </section>
-  <!-- End team Area -->
 
-
-  <!-- Start testimonial Area -->
   <section class="testimonial-area relative section-gap">
     <div class="title text-center">
       <h1 class="mb-10" style="color:white;">Testimonial</h1>
@@ -223,11 +191,10 @@
             </div>
             <div class="desc">
               <p>
-                Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner,
-                speaker, projector, hardware.
+                Pelayanan sangat spesial terhadap hewan peliharaan saya, saya pun tidak khawatir dengan hewan peliharaan saya diwaktu saya sedang sibuk bekerja.
               </p>
-              <h4 mt-30>Mark Alviro Wiens</h4>
-              <p>CEO at Google</p>
+              <h4 mt-30>Adi Suryono</h4>
+              <p>Customer</p>
             </div>
           </div>
           <div class="single-testimonial item d-flex flex-row">
@@ -236,11 +203,22 @@
             </div>
             <div class="desc">
               <p>
-                Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner,
-                speaker, projector, hardware.
+                Selain menitipkan hewan, di Carepet juga ada perawatan untuk hewan peliharaan anda. Saya jadi tidak kepikiran memberi makan hewan kesayangan saya. 
               </p>
-              <h4 mt-30>Mark Alviro Wiens</h4>
-              <p>CEO at Google</p>
+              <h4 mt-30>Ani</h4>
+              <p>Customer</p>
+            </div>
+          </div>
+          <div class="single-testimonial item d-flex flex-row">
+            <div class="thumb">
+              <img class="img-fluid" src="img/user2.png" alt="">
+            </div>
+            <div class="desc">
+              <p>
+                Saya jadi tidak khawatir dengan hewan peliharaan kesayangan saya, karena dengan Carepet hewan peliharaan saya jadi terjaga dengan baik. 
+              </p>
+              <h4 mt-30>Andi Susanto</h4>
+              <p>Customer</p>
             </div>
           </div>
         </div>

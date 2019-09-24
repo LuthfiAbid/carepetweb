@@ -24,10 +24,9 @@ Route::get('loginadmin', function(){
 
 Route::get('dataOrder', 'HomeController@users');
 Route::get('loginPost', 'HomeController@loginPost');
-
 Route::get('home','HomeController@index');
-
 Route::get('pendingOrder','HomeController@pending');
+Route::get('history','HomeController@history');
 
 Route::get('logout','HomeController@logout');
 

@@ -18,6 +18,21 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="panel">
+                    <div class="tile-stats">
+                        <div class="panel-body">
+                            <div class="icon"><i class="fa fa-dollar"></i></div>
+                            <h3>
+                                <div class="count" id="countfinish">
+                                </div>
+                            </h3>
+                            <h3>Order Finish</h3>
+                            <a href="{{url('pendingOrder')}}" type="button" class="btn btn-info">Show</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -47,6 +62,12 @@
             var order = snapshot.numChildren();
             $('#count').html('<h3>'+order+'</h3>');
         }); 
+
+    var reff = firebase.database().ref("order").orderByChild('status').equalTo("Finish");
+    reff.on("value", function(snapshot) {
+        var order = snapshot.numChildren();
+        $('#countfinish').html('<h3>'+order+'</h3>');
+    }); 
 </script>
 @endsection
 @section('content')

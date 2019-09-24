@@ -57,6 +57,12 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{ url('history') }}">
+								<i class='fa fa-history'></i>
+								<span>History Order</span>
+							</a>
+						</li>
+						<li>
 							<a onclick="Logout()">
 								<i class='fa fa-users'></i>
 								<span>Logout</span>

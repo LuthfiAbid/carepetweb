@@ -19,9 +19,11 @@
             <table class="table table-bordered" id="table_data" width="100%">
                 <thead>
                     <tr>
+                        <th>No.</th>
                         <th>Customer Name</th>
                         <th>Start Time</th>
-                        <th>End Time</th> 
+                        <th>End Time</th>
+                        <th>Status</th>
                         <th>Picture</th>
                         <th width="250px" class="text-center">Action</th>
                     </tr>
@@ -98,20 +100,39 @@ var config = {
 $(function () {
     var obj = [];
     var obj2 = [];
+    var no = 0;
     firebase.database().ref('order').orderByChild('status')
             .equalTo("In Proccess").on('value', function(snapshot) {
     var order = snapshot.val();
+    console.log(order)
     obj = [];
+    no++;
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [order.name,order.startTime,order.endTime,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
+            obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
         		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Delete</a>'];
             obj.push(obj2);
-        }
+            }       
         });
     addTable(obj);
     function addTable(data){
-    $('#table_data').DataTable().clear().draw();
+    $('#table_data').DataTable({
+        "language": {
+                    "emptyTable": "Data Order Kosong",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 data",
+                    "infoFiltered": "(disaring dari _MAX_ total data)",
+                    "search": "Cari:",
+                    "lengthMenu": "Tampilkan _MENU_ Data",
+                    "zeroRecords": "Tidak Ada Data yang Ditampilkan",
+                    "oPaginate": {
+                        "sFirst": "Awal",
+                        "sLast": "Akhir",
+                        "sNext": "Selanjutnya",
+                        "sPrevious": "Sebelumnya"
+                    },
+                }
+    }).clear().draw();
     $('#table_data').DataTable().rows.add(data).draw();
     }
 });
@@ -188,7 +209,7 @@ $('.updateUserRecord').on('click', function() {
         userid:data.userid,
         note:data.note,
         name:data.name,
-        status:"In Proccess"
+        status:"Finish"
     };
     
 	var updates = {};

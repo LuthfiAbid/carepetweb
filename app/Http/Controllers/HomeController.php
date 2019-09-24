@@ -15,7 +15,7 @@ class HomeController extends Controller
         print_r(Session::get('login'));
         if(!Session::get('login')){
             Alert::error('Error message', 'right-sidebar');
-            return redirect('login');
+            return redirect('loginadmin');
         }else{
             return view('admin.dashboard');
         }
@@ -26,7 +26,7 @@ class HomeController extends Controller
         print_r(Session::get('login'));
         if(!Session::get('login')){
             Alert::error('Error message', 'right-sidebar');
-            return redirect('login');
+            return redirect('loginadmin');
         }else{
         return view('admin.welcome');
         }
@@ -48,14 +48,25 @@ class HomeController extends Controller
         print_r(Session::get('login'));
         if(!Session::get('login')){
             Alert::error('Error message', 'right-sidebar');
-            return redirect('login');
+            return redirect('loginadmin');
         }else{
         return view('admin.pending');
+        }
+    }
+    public function history()
+    {
+        print_r(Session::get('login'));
+        if(!Session::get('login')){
+            Alert::error('Error message', 'right-sidebar');
+            return redirect('loginadmin');
+        }else{
+        return view('admin.history');
         }
     }
     public function logout()
     {
         Session::flush();
-        return redirect('login');
+        echo 2;
+        return redirect('loginadmin');
     }
 }
