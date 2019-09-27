@@ -45,13 +45,13 @@
                         aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <h4>You Want You Sure Delete This Record?</h4>
+                    <h4>Are you sure want to reject this order?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form"
                         data-dismiss="modal">Close</button>
                     <button type="button"
-                        class="btn btn-danger waves-effect waves-light deleteMatchRecord">Delete</button>
+                        class="btn btn-danger waves-effect waves-light rejectMatchRecord">Reject</button>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                     <button type="button" class="close update-data-from-delete-form" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="updateBody">
-                    
+                    <h4>Are you sure want to reject this order?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect update-data-from-delete-form" data-dismiss="modal">Close</button>
@@ -104,30 +104,14 @@ $(function () {
     no++;
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
+            obj2 = [no,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
         		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Reject</a>'];
             obj.push(obj2);
         }
         });
     addTable(obj);
     function addTable(data){
-    $('#table_data').DataTable({
-        "language": {
-                    "emptyTable": "Data Order Kosong",
-                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 data",
-                    "infoFiltered": "(disaring dari _MAX_ total data)",
-                    "search": "Cari:",
-                    "lengthMenu": "Tampilkan _MENU_ Data",
-                    "zeroRecords": "Tidak Ada Data yang Ditampilkan",
-                    "oPaginate": {
-                        "sFirst": "Awal",
-                        "sLast": "Akhir",
-                        "sNext": "Selanjutnya",
-                        "sPrevious": "Sebelumnya"
-                    },
-                }
-    }).clear().draw();
+    $('#table_data').DataTable().clear().draw();
     $('#table_data').DataTable().rows.add(data).draw();
     }
 });
@@ -171,22 +155,9 @@ $('#submitUser').on('click', function(){
 var updateID = 0;
 $('body').on('click', '.updateData', function() {
 	updateID = $(this).attr('data-id');
+    alert(updateID);
 	firebase.database().ref('order/' + updateID).on('value', function(snapshot) {
 		var values = snapshot.val();
-		var updateData = '<div class="form-group">\
-		        <label for="name" class="col-md-12 col-form-label">First Name</label>\
-		        <div class="col-md-12">\
-		            <input id="name" type="text" class="form-control" name="name" value="'+values.name+'" required autofocus>\
-		        </div>\
-		    </div>\
-		    <div class="form-group">\
-		        <label for="address" class="col-md-12 col-form-label">Last Name</label>\
-		        <div class="col-md-12">\
-		            <input id="address" type="text" class="form-control" name="address" value="'+values.address+'" required autofocus>\
-		        </div>\
-		    </div>';
-
-		    $('#updateBody').html(updateData);
 	});
 });
 
@@ -198,12 +169,12 @@ $('.updateUserRecord').on('click', function() {
         orderid:data.orderid,
         endTime:data.endTime,
         startTime:data.startTime,
-        jenis:data.jenis,
         image:data.image,
         phone:data.phone,
         userid:data.userid,
         note:data.note,
         name:data.name,
+        time:data.time,
         status:"In Proccess"
     };
     
@@ -214,18 +185,37 @@ $('.updateUserRecord').on('click', function() {
 });
 });
 
+var id = 0;
 // Remove Data
 $("body").on('click', '.removeData', function() {
 	var id = $(this).attr('data-id');
 	$('body').find('.users-remove-record-model').append('<input name="id" type="hidden" value="'+ id +'">');
 });
 
-$('.deleteMatchRecord').on('click', function(){
+$('.rejectMatchRecord').on('click', function(){
 	var values = $(".users-remove-record-model").serializeArray();
 	var id = values[0].value;
-	firebase.database().ref('dataUser/' + id).remove();
+	firebase.database().ref('order/' +id).on('value', function(snapshot) {
+    // var values = $(".users-update-record-model").serializeArray();
+    var data = snapshot.val();
+	var postData = {
+        orderid:data.orderid,
+        endTime:data.endTime,
+        startTime:data.startTime,
+        image:data.image,
+        phone:data.phone,
+        userid:data.userid,
+        note:data.note,
+        name:data.name,
+        status:"Rejected"
+    };
+    
+	var updates = {};
+	updates['order/' + id] = postData;
+	firebase.database().ref().update(updates);
     $('body').find('.users-remove-record-model').find( "input" ).remove();
 	$("#remove-modal").modal('hide');
+});
 });
 $('.remove-data-from-delete-form').click(function() {
 	$('body').find('.users-remove-record-model').find( "input" ).remove();

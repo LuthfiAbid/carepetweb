@@ -18,10 +18,8 @@ Route::get('/', function(){
     return view('landing.index');
 });
 
-Route::get('loginadmin', function(){
-    return view('login');
-});
 
+Route::get('login','HomeController@login');
 Route::get('dataOrder', 'HomeController@users');
 Route::get('loginPost', 'HomeController@loginPost');
 Route::get('home','HomeController@index');

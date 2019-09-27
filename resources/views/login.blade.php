@@ -104,12 +104,11 @@ firebase.auth().onAuthStateChanged(function(user) {
                 processData: false,
                 contentType: false,
                 success: function (data) {
-					// console.log(data);
 					if(data == 1){                        
-                        window.location.href = "{{url('home')}}";
+                        window.location.href = "{{url('login')}}";
                     }else{  
-
-                 	 }
+                        
+                 	}
                 }
             });            
         }else{
@@ -126,10 +125,12 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
+//Login auth
+
 function login(){
 var email = $("#email").val();
 var password = $("#password").val();
-//Login auth
+
 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;

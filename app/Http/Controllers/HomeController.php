@@ -9,26 +9,32 @@ use Redirect;
 
 class HomeController extends Controller
 {
-//-----------------------------------Landing Page----------------------------------------------//
-    function index()
+    public function index()
     {
         print_r(Session::get('login'));
         if(!Session::get('login')){
             Alert::error('Error message', 'right-sidebar');
-            return redirect('loginadmin');
+            return redirect('login');
         }else{
             return view('admin.dashboard');
         }
     }
-//---------------------------------------------------------------------------------------------//
     public function users()
     {
         print_r(Session::get('login'));
         if(!Session::get('login')){
-            Alert::error('Error message', 'right-sidebar');
-            return redirect('loginadmin');
+            return redirect('login');
         }else{
         return view('admin.welcome');
+        }
+    }
+    public function login()
+    {
+        print_r(Session::get('login'));
+        if(!Session::get('login')){
+            return view('login');
+        }else{
+        return redirect('home');
         }
     }
     public function loginPost(Request $request)
@@ -48,7 +54,7 @@ class HomeController extends Controller
         print_r(Session::get('login'));
         if(!Session::get('login')){
             Alert::error('Error message', 'right-sidebar');
-            return redirect('loginadmin');
+            return redirect('login');
         }else{
         return view('admin.pending');
         }
@@ -58,7 +64,7 @@ class HomeController extends Controller
         print_r(Session::get('login'));
         if(!Session::get('login')){
             Alert::error('Error message', 'right-sidebar');
-            return redirect('loginadmin');
+            return redirect('login');
         }else{
         return view('admin.history');
         }
@@ -66,7 +72,6 @@ class HomeController extends Controller
     public function logout()
     {
         Session::flush();
-        echo 2;
-        return redirect('loginadmin');
+        return redirect('login');
     }
 }

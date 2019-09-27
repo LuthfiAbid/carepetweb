@@ -51,7 +51,7 @@
                     <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form"
                         data-dismiss="modal">Close</button>
                     <button type="button"
-                        class="btn btn-danger waves-effect waves-light deleteMatchRecord">Delete</button>
+                        class="btn btn-danger waves-effect waves-light deleteMatchRecord">Reject</button>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                         aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="updateBody">
-
+                    <h4>Are you sure want to proccess this order?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect update-data-from-delete-form"
@@ -97,12 +97,15 @@ var config = {
     appId: "1:1079386289801:web:3bc40b3105fc762bbaf858"
 };
 
+firebase.initializeApp(config);
+var orderRef = firebase.database().ref('order');
+var userRef = firebase.database().ref('dataUser');
+
 $(function () {
     var obj = [];
     var obj2 = [];
     var no = 0;
-    firebase.database().ref('order').orderByChild('status')
-            .equalTo("In Proccess").on('value', function(snapshot) {
+    orderRef.orderByChild('status').equalTo("In Proccess").on('value', function(snapshot) {    
     var order = snapshot.val();
     console.log(order)
     obj = [];
@@ -110,40 +113,23 @@ $(function () {
     $.each(order, function(index ,order){
         if(order) {
             obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
-        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Delete</a>'];
+        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Reject</a>'];
             obj.push(obj2);
             }       
         });
     addTable(obj);
     function addTable(data){
-    $('#table_data').DataTable({
-        "language": {
-                    "emptyTable": "Data Order Kosong",
-                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 data",
-                    "infoFiltered": "(disaring dari _MAX_ total data)",
-                    "search": "Cari:",
-                    "lengthMenu": "Tampilkan _MENU_ Data",
-                    "zeroRecords": "Tidak Ada Data yang Ditampilkan",
-                    "oPaginate": {
-                        "sFirst": "Awal",
-                        "sLast": "Akhir",
-                        "sNext": "Selanjutnya",
-                        "sPrevious": "Sebelumnya"
-                    },
-                }
-    }).clear().draw();
+    $('#table_data').DataTable().clear().draw();
     $('#table_data').DataTable().rows.add(data).draw();
     }
 });
 });
-firebase.initializeApp(config);
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
 
   } else {
-    window.location.href = "{{url('loginadmin')}}";
+    window.location.href = "{{url('login')}}";
   }
 });
 
@@ -176,39 +162,26 @@ $('#submitUser').on('click', function(){
 var updateID = 0;
 $('body').on('click', '.updateData', function() {
 	updateID = $(this).attr('data-id');
+    alert(updateID);
 	firebase.database().ref('order/' + updateID).on('value', function(snapshot) {
 		var values = snapshot.val();
-		var updateData = '<div class="form-group">\
-		        <label for="name" class="col-md-12 col-form-label">First Name</label>\
-		        <div class="col-md-12">\
-		            <input id="name" type="text" class="form-control" name="name" value="'+values.name+'" required autofocus>\
-		        </div>\
-		    </div>\
-		    <div class="form-group">\
-		        <label for="address" class="col-md-12 col-form-label">Last Name</label>\
-		        <div class="col-md-12">\
-		            <input id="address" type="text" class="form-control" name="address" value="'+values.address+'" required autofocus>\
-		        </div>\
-		    </div>';
-
-		    $('#updateBody').html(updateData);
 	});
 });
 
 $('.updateUserRecord').on('click', function() {
     firebase.database().ref('order/' +updateID).on('value', function(snapshot) {
-    var values = $(".users-update-record-model").serializeArray();
+    // var values = $(".users-update-record-model").serializeArray();
     var data = snapshot.val();
 	var postData = {
         orderid:data.orderid,
         endTime:data.endTime,
         startTime:data.startTime,
-        jenis:data.jenis,
         image:data.image,
         phone:data.phone,
         userid:data.userid,
         note:data.note,
         name:data.name,
+        time:data.time,
         status:"Finish"
     };
     
