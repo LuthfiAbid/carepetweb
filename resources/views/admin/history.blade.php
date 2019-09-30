@@ -25,62 +25,12 @@
                         <th>End Time</th> 
                         <th>Status</th>
                         <th>Picture</th>
-                        <th width="250px" class="text-center">Action</th>
                     </tr>
                 </thead>
             </table>
         </div>
     </div>
 </div>
-
-<!-- Delete Model -->
-<form action="" method="POST" class="users-remove-record-model">
-    <div id="remove-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
-        aria-hidden="true" style="display: none;">
-        <div class="modal-dialog" style="width:55%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="custom-width-modalLabel">Delete Record</h4>
-                    <button type="button" class="close remove-data-from-delete-form" data-dismiss="modal"
-                        aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <h4>You Want You Sure Delete This Record?</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form"
-                        data-dismiss="modal">Close</button>
-                    <button type="button"
-                        class="btn btn-danger waves-effect waves-light deleteMatchRecord">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!-- Update Model -->
-<form action="" method="POST" class="users-update-record-model form-horizontal">
-    <div id="update-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
-        aria-hidden="true" style="display: none;">
-        <div class="modal-dialog" style="width:55%;">
-            <div class="modal-content" style="overflow: hidden;">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="custom-width-modalLabel">Update Record</h4>
-                    <button type="button" class="close update-data-from-delete-form" data-dismiss="modal"
-                        aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body" id="updateBody">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect update-data-from-delete-form"
-                        data-dismiss="modal">Close</button>
-                    <button type="button"
-                        class="btn btn-success waves-effect waves-light updateUserRecord">Update</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{URL::asset('DataTables/js/jquery.dataTables.min.js')}}"></script>
@@ -109,8 +59,7 @@ $(function () {
     no++;
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
-        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Delete</a>'];
+            obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>'];
             obj.push(obj2);
         }
         });

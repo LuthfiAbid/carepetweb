@@ -63,8 +63,14 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{ url('report') }}">
+								<i class='fa fa-clipboard'></i>
+								<span>Report User</span>
+							</a>
+						</li>
+						<li>
 							<a onclick="Logout()">
-								<i class='fa fa-users'></i>
+								<i class='fa fa-ban'></i>
 								<span>Logout</span>
 							</a>
 						</li>

@@ -107,7 +107,6 @@ $(function () {
     var no = 0;
     orderRef.orderByChild('status').equalTo("In Proccess").on('value', function(snapshot) {    
     var order = snapshot.val();
-    console.log(order)
     obj = [];
     no++;
     $.each(order, function(index ,order){
@@ -162,7 +161,6 @@ $('#submitUser').on('click', function(){
 var updateID = 0;
 $('body').on('click', '.updateData', function() {
 	updateID = $(this).attr('data-id');
-    alert(updateID);
 	firebase.database().ref('order/' + updateID).on('value', function(snapshot) {
 		var values = snapshot.val();
 	});
@@ -170,7 +168,6 @@ $('body').on('click', '.updateData', function() {
 
 $('.updateUserRecord').on('click', function() {
     firebase.database().ref('order/' +updateID).on('value', function(snapshot) {
-    // var values = $(".users-update-record-model").serializeArray();
     var data = snapshot.val();
 	var postData = {
         orderid:data.orderid,

@@ -25,6 +25,7 @@ Route::get('loginPost', 'HomeController@loginPost');
 Route::get('home','HomeController@index');
 Route::get('pendingOrder','HomeController@pending');
 Route::get('history','HomeController@history');
+Route::get('report','HomeController@report');
 
 Route::get('logout','HomeController@logout');
 

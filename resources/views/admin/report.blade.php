@@ -10,7 +10,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-10">
-                    <strong>All Order Need Approved</strong>
+                    <strong>All Order Listing</strong>
                 </div>
             </div>
         </div>
@@ -21,10 +21,8 @@
                     <tr>
                         <th>No.</th>
                         <th>Customer Name</th>
-                        <th>Start Time</th>
-                        <th>End Time</th> 
-                        <th>Status</th>
-                        <th>Picture</th>
+                        <th>Order Time</th>
+                        <th>Report User</th>
                         <th width="250px" class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -45,13 +43,13 @@
                         aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <h4>Are you sure want to reject this order?</h4>
+                    <h4>You Want You Sure Delete This Record?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form"
                         data-dismiss="modal">Close</button>
                     <button type="button"
-                        class="btn btn-danger waves-effect waves-light rejectMatchRecord">Reject</button>
+                        class="btn btn-danger waves-effect waves-light deleteMatchRecord">Reject</button>
                 </div>
             </div>
         </div>
@@ -59,19 +57,23 @@
 </form>
 <!-- Update Model -->
 <form action="" method="POST" class="users-update-record-model form-horizontal">
-    <div id="update-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+    <div id="update-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
+        aria-hidden="true" style="display: none;">
         <div class="modal-dialog" style="width:55%;">
             <div class="modal-content" style="overflow: hidden;">
                 <div class="modal-header">
                     <h4 class="modal-title" id="custom-width-modalLabel">Update Record</h4>
-                    <button type="button" class="close update-data-from-delete-form" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close update-data-from-delete-form" data-dismiss="modal"
+                        aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="updateBody">
-                    <h4>Are you sure want to reject this order?</h4>
+                    <h4>Are you sure want to proccess this order?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect update-data-from-delete-form" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success waves-effect waves-light updateUserRecord">Update</button>
+                    <button type="button" class="btn btn-default waves-effect update-data-from-delete-form"
+                        data-dismiss="modal">Close</button>
+                    <button type="button"
+                        class="btn btn-success waves-effect waves-light updateUserRecord">Update</button>
                 </div>
             </div>
         </div>
@@ -82,7 +84,6 @@
 <script type="text/javascript" src="{{URL::asset('DataTables/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('DataTables/js/datatables.bootstrap.min.js')}}"></script>
 <script>
-    // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCc667hw1EAFD3vh-hXnMNna5WeOG7i_Bs",
     authDomain: "talaravel-591d8.firebaseapp.com",
@@ -93,21 +94,25 @@ var config = {
     appId: "1:1079386289801:web:3bc40b3105fc762bbaf858"
 };
 
+firebase.initializeApp(config);
+var reportfRef = firebase.database().ref('reportOrder');
+
 $(function () {
     var obj = [];
     var obj2 = [];
     var no = 0;
-    firebase.database().ref('order').orderByChild('status')
-            .equalTo("In Approve").on('value', function(snapshot) {
-    var order = snapshot.val();
-    obj = [];    
+    reportfRef.on('value', function(snapshot) {    
+        var report = snapshot.val();
+    obj = [];
     no++;
-    $.each(order, function(index ,order){
-        if(order) {
-            obj2 = [no,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
-        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Reject</a>'];
+    firebase.database().ref('order/' + report.orderid).once('value', function(snap){
+        var value = snap.val();
+    $.each(report, function(index ,report,value){
+            if(report) {
+                obj2 = [no++,report.username,report.time,report.report,'<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Reply</a>\
+        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Delete</a>'];
             obj.push(obj2);
-        }
+                }     
         });
     addTable(obj);
     function addTable(data){
@@ -116,13 +121,13 @@ $(function () {
     }
 });
 });
-firebase.initializeApp(config);
+});
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
 
   } else {
-    window.location.href = "{{url('loginadmin')}}";
+    window.location.href = "{{url('login')}}";
   }
 });
 
@@ -134,7 +139,6 @@ function logout(){
     var database = firebase.database();
     var lastIndex = 0;
    
-
 // Add Data
 $('#submitUser').on('click', function(){
 	var values = $("#addUser").serializeArray();
@@ -155,6 +159,7 @@ $('#submitUser').on('click', function(){
 var updateID = 0;
 $('body').on('click', '.updateData', function() {
 	updateID = $(this).attr('data-id');
+    alert(updateID);
 	firebase.database().ref('order/' + updateID).on('value', function(snapshot) {
 		var values = snapshot.val();
 	});
@@ -174,7 +179,7 @@ $('.updateUserRecord').on('click', function() {
         note:data.note,
         name:data.name,
         time:data.time,
-        status:"In Proccess"
+        status:"Finish"
     };
     
 	var updates = {};
@@ -184,37 +189,18 @@ $('.updateUserRecord').on('click', function() {
 });
 });
 
-var id = 0;
 // Remove Data
 $("body").on('click', '.removeData', function() {
 	var id = $(this).attr('data-id');
 	$('body').find('.users-remove-record-model').append('<input name="id" type="hidden" value="'+ id +'">');
 });
 
-$('.rejectMatchRecord').on('click', function(){
+$('.deleteMatchRecord').on('click', function(){
 	var values = $(".users-remove-record-model").serializeArray();
 	var id = values[0].value;
-	firebase.database().ref('order/' +id).on('value', function(snapshot) {
-    // var values = $(".users-update-record-model").serializeArray();
-    var data = snapshot.val();
-	var postData = {
-        orderid:data.orderid,
-        endTime:data.endTime,
-        startTime:data.startTime,
-        image:data.image,
-        phone:data.phone,
-        userid:data.userid,
-        note:data.note,
-        name:data.name,
-        status:"Rejected"
-    };
-    
-	var updates = {};
-	updates['order/' + id] = postData;
-	firebase.database().ref().update(updates);
+	firebase.database().ref('dataUser/' + id).remove();
     $('body').find('.users-remove-record-model').find( "input" ).remove();
 	$("#remove-modal").modal('hide');
-});
 });
 $('.remove-data-from-delete-form').click(function() {
 	$('body').find('.users-remove-record-model').find( "input" ).remove();

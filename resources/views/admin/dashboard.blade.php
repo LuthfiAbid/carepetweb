@@ -28,7 +28,7 @@
                                 </div>
                             </h3>
                             <h3>Order Finish</h3>
-                            <a href="{{url('pendingOrder')}}" type="button" class="btn btn-info">Show</a>
+                            <a href="{{url('history')}}" type="button" class="btn btn-info">Show</a>
                         </div>
                     </div>
                 </div>

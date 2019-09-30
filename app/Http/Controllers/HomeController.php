@@ -69,6 +69,16 @@ class HomeController extends Controller
         return view('admin.history');
         }
     }
+    public function report()
+    {
+        print_r(Session::get('login'));
+        if(!Session::get('login')){
+            Alert::error('Error message', 'right-sidebar');
+            return redirect('login');
+        }else{
+        return view('admin.report');
+        }
+    }
     public function logout()
     {
         Session::flush();

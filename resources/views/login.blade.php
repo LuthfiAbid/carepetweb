@@ -107,7 +107,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 					if(data == 1){                        
                         window.location.href = "{{url('login')}}";
                     }else{  
-                        
+                        firebase.auth().signOut();                                             
                  	}
                 }
             });            
