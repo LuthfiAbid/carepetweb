@@ -53,7 +53,7 @@
         if (user) {
 
         } else {
-            window.location.href = "{{url('loginadmin')}}";
+            window.location.href = "{{url('login')}}";
         }
     });
 

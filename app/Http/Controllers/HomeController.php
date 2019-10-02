@@ -79,6 +79,10 @@ class HomeController extends Controller
         return view('admin.report');
         }
     }
+    public function reportDetail(Request $request)
+    {
+        # code...
+    }
     public function logout()
     {
         Session::flush();

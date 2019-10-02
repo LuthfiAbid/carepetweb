@@ -59,7 +59,7 @@ $(function () {
     no++;
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>'];
+            obj2 = [no++,order.name,order.startTime,order.endTime,'<span class="label label-success">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>'];
             obj.push(obj2);
         }
         });

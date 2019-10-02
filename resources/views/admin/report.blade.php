@@ -21,8 +21,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Customer Name</th>
-                        <th>Order Time</th>
-                        <th>Report User</th>
+                        <th>Report Time</th>
                         <th width="250px" class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -67,7 +66,6 @@
                         aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="updateBody">
-                    <h4>Are you sure want to proccess this order?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect update-data-from-delete-form"
@@ -84,7 +82,7 @@
 <script type="text/javascript" src="{{URL::asset('DataTables/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('DataTables/js/datatables.bootstrap.min.js')}}"></script>
 <script>
-var config = {
+    var config = {
     apiKey: "AIzaSyCc667hw1EAFD3vh-hXnMNna5WeOG7i_Bs",
     authDomain: "talaravel-591d8.firebaseapp.com",
     databaseURL: "https://talaravel-591d8.firebaseio.com",
@@ -97,6 +95,7 @@ var config = {
 firebase.initializeApp(config);
 var reportfRef = firebase.database().ref('reportOrder');
 
+//Get Data
 $(function () {
     var obj = [];
     var obj2 = [];
@@ -105,12 +104,9 @@ $(function () {
         var report = snapshot.val();
     obj = [];
     no++;
-    firebase.database().ref('order/' + report.orderid).once('value', function(snap){
-        var value = snap.val();
-    $.each(report, function(index ,report,value){
+    $.each(report, function(index ,report){
             if(report) {
-                obj2 = [no++,report.username,report.time,report.report,'<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Reply</a>\
-        		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Delete</a>'];
+                obj2 = [no++,report.username,report.time,'<a data-toggle="modal" data-target="#update-modal" class="btn btn-info updateData" data-id="'+index+'">Reply</a>'];
             obj.push(obj2);
                 }     
         });
@@ -119,8 +115,7 @@ $(function () {
     $('#table_data').DataTable().clear().draw();
     $('#table_data').DataTable().rows.add(data).draw();
     }
-});
-});
+    });
 });
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -155,13 +150,38 @@ $('#submitUser').on('click', function(){
 	$("#addUser input").val("");
 });
 
-// Update Data
+// Reply Data
 var updateID = 0;
 $('body').on('click', '.updateData', function() {
 	updateID = $(this).attr('data-id');
-    alert(updateID);
-	firebase.database().ref('order/' + updateID).on('value', function(snapshot) {
+	firebase.database().ref('reportOrder/' + updateID).on('value', function(snapshot) {
 		var values = snapshot.val();
+        var updateData = 
+            '<div class="form-group">\
+		        <label for="name" class="col-md-12 col-form-label">Customer Name</label>\
+		        <div class="col-md-12">\
+		            <input id="name" type="text" class="form-control" readonly name="name" value="'+values.username+'">\
+		        </div>\
+		    </div>\
+		    <div class="form-group">\
+		        <label for="time" class="col-md-12 col-form-label">Order Time</label>\
+		        <div class="col-md-12">\
+		            <input id="time" type="text" class="form-control" readonly name="time" value="'+values.time+'">\
+		        </div>\
+		    </div>\
+            <div class="form-group">\
+		        <label for="note" class="col-md-12 col-form-label">Report from user</label>\
+		        <div class="col-md-12">\
+		            <textarea id="note" name="note" class="form-control" placeholder="'+values.report+'" readonly cols="85" rows="5"></textarea>\
+		        </div>\
+		    </div>\
+            <div class="form-group">\
+		        <label for="note" class="col-md-12 col-form-label">Reply</label>\
+		        <div class="col-md-12">\
+		            <textarea id="note" name="note" class="form-control" placeholder="Problems . . ." cols="85" rows="5"></textarea>\
+		        </div>\
+		    </div>';
+		    $('#updateBody').html(updateData);
 	});
 });
 

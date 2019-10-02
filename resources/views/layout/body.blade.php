@@ -118,7 +118,7 @@
 							showConfirmButton: false,
 							timer: 1500
         				})
-						window.location.replace("{{url('loginadmin')}}");                   
+						window.location.replace("{{url('login')}}");                   
                 }
             });
 	}

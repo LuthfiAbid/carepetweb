@@ -107,7 +107,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 					if(data == 1){                        
                         window.location.href = "{{url('login')}}";
                     }else{  
-                        firebase.auth().signOut();                                             
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Anda tidak terdaftar!'
+                        })                                             
                  	}
                 }
             });            
@@ -131,16 +135,26 @@ function login(){
 var email = $("#email").val();
 var password = $("#password").val();
 
-firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  Swal.fire({
-    type: 'error',
-    title: 'Oops...',
-    text: 'Akun tidak terdaftar!'
-    })
-});
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  .then(function() {
+    // Existing and future Auth states are now persisted in the current
+    // session only. Closing the window would clear any existing state even
+    // if a user forgets to sign out.
+    // ...
+    // New sign-in will be persisted with session persistence.
+    firebase.auth().signOut()
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+  })
+  .catch(function(error) {
+    // Handle Errors here.
+    Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Anda tidak terdaftar!'
+    })     
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  });
 
 }
 </script>
