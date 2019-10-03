@@ -101,15 +101,14 @@ var config = {
 $(function () {
     var obj = [];
     var obj2 = [];
-    var no = 0;
+    var no = 1;
     firebase.database().ref('order').orderByChild('status')
             .equalTo("In Approve").on('value', function(snapshot) {
     var order = snapshot.val();
-    obj = [];    
-    no++;
+    obj = [];  
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no,order.name,order.startTime,order.endTime,'<span class="label label-warning">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
+            obj2 = [no++,order.name,order.startTime,order.endTime,'<span class="label label-warning">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
         		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Reject</a>'];
             obj.push(obj2);
         }

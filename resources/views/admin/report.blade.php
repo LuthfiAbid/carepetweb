@@ -99,16 +99,13 @@ var reportfRef = firebase.database().ref('reportOrder');
 $(function () {
     var obj = [];
     var obj2 = [];
-    var no = 0;
-    reportfRef.on('value', function(snapshot) {    
+    var no = 1;
+    reportfRef.once('value', function(snapshot) {    
         var report = snapshot.val();
     obj = [];
-    no++;
     $.each(report, function(index ,report){
-            if(report) {
                 obj2 = [no++,report.username,report.time,'<a data-toggle="modal" data-target="#update-modal" class="btn btn-info updateData" data-id="'+index+'">Reply</a>'];
             obj.push(obj2);
-                }     
         });
     addTable(obj);
     function addTable(data){
@@ -154,8 +151,10 @@ $('#submitUser').on('click', function(){
 var updateID = 0;
 $('body').on('click', '.updateData', function() {
 	updateID = $(this).attr('data-id');
-	firebase.database().ref('reportOrder/' + updateID).on('value', function(snapshot) {
-		var values = snapshot.val();
+    alert(updateID)
+	firebase.database().ref('reportOrder/' + updateID).once('value', function(snapshot) {
+            var values = snapshot.val();
+            console.log(values)
         var updateData = 
             '<div class="form-group">\
 		        <label for="name" class="col-md-12 col-form-label">Customer Name</label>\
@@ -186,26 +185,29 @@ $('body').on('click', '.updateData', function() {
 });
 
 $('.updateUserRecord').on('click', function() {
-    firebase.database().ref('order/' +updateID).on('value', function(snapshot) {
-    // var values = $(".users-update-record-model").serializeArray();
-    var data = snapshot.val();
-	var postData = {
-        orderid:data.orderid,
-        endTime:data.endTime,
-        startTime:data.startTime,
-        image:data.image,
-        phone:data.phone,
-        userid:data.userid,
-        note:data.note,
-        name:data.name,
-        time:data.time,
-        status:"Finish"
-    };
+    firebase.database().ref('reportOrder/' +updateID).once('value', function(snapshot) {
+    var data = snapshot.val();	
+
+    // firebase.database().ref('reportOrder/' +updateID).update({
+    //     id:data.id,
+    //     orderid:data.orderid,
+    //     report:data.report,
+    //     status:"Replied",
+    //     time:data.time,
+    //     username:data.username,
+    // });
     
-	var updates = {};
-	updates['order/' + updateID] = postData;
-	firebase.database().ref().update(updates);
+    var values = $(".users-update-record-model").serializeArray();
+    var postData = {
+            reply:values[3].value,
+        };
+    
+    alert(values[3].value)
+    var updates = {};
+    updates['reportOrder/' + updateID +'/reply'] = postData;
+    firebase.database().ref().update(updates);
 	$("#update-modal").modal('hide');
+
 });
 });
 

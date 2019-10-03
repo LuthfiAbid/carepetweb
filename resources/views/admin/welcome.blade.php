@@ -105,7 +105,7 @@ $(function () {
     var obj = [];
     var obj2 = [];
     var no = 0;
-    orderRef.orderByChild('status').equalTo("In Proccess").on('value', function(snapshot) {    
+    orderRef.orderByChild('status').equalTo("In Proccess").once('value', function(snapshot) {    
     var order = snapshot.val();
     obj = [];
     no++;
@@ -186,6 +186,7 @@ $('.updateUserRecord').on('click', function() {
 	updates['order/' + updateID] = postData;
 	firebase.database().ref().update(updates);
 	$("#update-modal").modal('hide');
+    window.location.href = "{{url('dataOrder')}}";
 });
 });
 

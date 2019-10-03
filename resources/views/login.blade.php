@@ -80,8 +80,8 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(function(user) {    
   if (user) {
     var user = firebase.auth().currentUser;
-    firebase.database().ref('dataUser/' + user.uid).once('value').then(function(snapshot) {
-        var Nama = (snapshot.val() && snapshot.val().nama) || 'Anonymous';
+    firebase.database().ref('dataAdmin/' + user.uid).once('value').then(function(snapshot) {
+        var Nama = (snapshot.val() && snapshot.val().name) || 'Anonymous';
         var Email = (snapshot.val() && snapshot.val().email) || 'Anonymous';
         var Status = (snapshot.val() && snapshot.val().status) || 'Anonymous';
         const Toast = Swal.fire({
@@ -135,14 +135,13 @@ function login(){
 var email = $("#email").val();
 var password = $("#password").val();
 
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   .then(function() {
     // Existing and future Auth states are now persisted in the current
     // session only. Closing the window would clear any existing state even
     // if a user forgets to sign out.
     // ...
     // New sign-in will be persisted with session persistence.
-    firebase.auth().signOut()
     return firebase.auth().signInWithEmailAndPassword(email, password);
   })
   .catch(function(error) {

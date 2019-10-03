@@ -51,12 +51,11 @@ var config = {
 $(function () {
     var obj = [];
     var obj2 = [];
-    var no = 0;
+    var no = 1;
     firebase.database().ref('order').orderByChild('status')
-            .equalTo("Finish").on('value', function(snapshot) {
+            .equalTo("Finish").once('value', function(snapshot) {
     var order = snapshot.val();
     obj = [];
-    no++;
     $.each(order, function(index ,order){
         if(order) {
             obj2 = [no++,order.name,order.startTime,order.endTime,'<span class="label label-success">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>'];
@@ -65,23 +64,7 @@ $(function () {
         });
     addTable(obj);
     function addTable(data){
-    $('#table_data').DataTable({
-        "language": {
-                    "emptyTable": "Data Order Kosong",
-                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 data",
-                    "infoFiltered": "(disaring dari _MAX_ total data)",
-                    "search": "Cari:",
-                    "lengthMenu": "Tampilkan _MENU_ Data",
-                    "zeroRecords": "Tidak Ada Data yang Ditampilkan",
-                    "oPaginate": {
-                        "sFirst": "Awal",
-                        "sLast": "Akhir",
-                        "sNext": "Selanjutnya",
-                        "sPrevious": "Sebelumnya"
-                    },
-                }
-    }).clear().draw();
+    $('#table_data').DataTable().clear().draw();
     $('#table_data').DataTable().rows.add(data).draw();
     }
 });
