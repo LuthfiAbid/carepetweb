@@ -4,6 +4,14 @@
     .desabled {
         pointer-events: none;
     }
+    table {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
 </style>
 <div class="col-md-12">
     <div class="card card-default">
@@ -51,14 +59,13 @@ var config = {
 $(function () {
     var obj = [];
     var obj2 = [];
-    var no = 1;
     firebase.database().ref('order').orderByChild('status')
             .equalTo("Finish").once('value', function(snapshot) {
     var order = snapshot.val();
     obj = [];
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no++,order.name,order.startTime,order.endTime,'<span class="label label-success">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>'];
+            obj2 = ['<span class="count"></span>',order.name,order.startTime,order.endTime,'<span class="label label-success">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>'];
             obj.push(obj2);
         }
         });

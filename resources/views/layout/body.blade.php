@@ -69,7 +69,7 @@
 							</a>
 						</li>
 						<li>
-							<a onclick="Logout()">
+							<a onclick="Logout()" style="cursor:pointer;">
 								<i class='fa fa-ban'></i>
 								<span>Logout</span>
 							</a>
@@ -124,5 +124,4 @@
 	}
 	</script>
 </body>
-
 </html>

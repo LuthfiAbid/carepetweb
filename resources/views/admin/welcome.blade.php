@@ -4,6 +4,14 @@
     .desabled {
         pointer-events: none;
     }
+    table {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
 </style>
 <div class="col-md-12">
     <div class="card card-default">
@@ -104,14 +112,12 @@ var userRef = firebase.database().ref('dataUser');
 $(function () {
     var obj = [];
     var obj2 = [];
-    var no = 0;
     orderRef.orderByChild('status').equalTo("In Proccess").once('value', function(snapshot) {    
     var order = snapshot.val();
     obj = [];
-    no++;
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no++,order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
+            obj2 = ['<span class="count"></span>',order.name,order.startTime,order.endTime,order.status,'<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
         		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Reject</a>'];
             obj.push(obj2);
             }       
@@ -132,7 +138,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-
 function logout(){
     firebase.auth().signOut();
  }
@@ -140,23 +145,6 @@ function logout(){
     var database = firebase.database();
     var lastIndex = 0;
    
-
-// Add Data
-$('#submitUser').on('click', function(){
-	var values = $("#addUser").serializeArray();
-	var name = values[0].value;
-	var address = values[1].value;
-	var userID = lastIndex+1;
-
-    firebase.database().ref('dataUser/' + userID).set({
-        name: name,
-        address: address,
-    });
-    // Reassign lastID value
-    lastIndex = userID;
-	$("#addUser input").val("");
-});
-
 // Update Data
 var updateID = 0;
 $('body').on('click', '.updateData', function() {

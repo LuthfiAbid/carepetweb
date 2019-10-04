@@ -9,6 +9,14 @@
         resize: vertical;
         padding: 10px 0px 0px 10px;
     }
+    table {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
 </style>
 <div class="col-md-12">
     <div class="card card-default">
@@ -102,13 +110,21 @@ $(function () {
     var obj = [];
     var obj2 = [];
     var no = 1;
+    // var tables = document.getElementsByTagName('table');
+    // var table = tables[tables.length - 1];
+    // var rows = table.rows;
+    // for(var i = 0, td; i < rows.length; i++){
+    //     td = document.createElement('td');
+    //     td.appendChild(document.createTextNode(i + 1));
+    //     rows[i].insertBefore(td, rows[i].firstChild);
+    // }
     firebase.database().ref('order').orderByChild('status')
             .equalTo("In Approve").on('value', function(snapshot) {
     var order = snapshot.val();
     obj = [];  
     $.each(order, function(index ,order){
         if(order) {
-            obj2 = [no++,order.name,order.startTime,order.endTime,'<span class="label label-warning">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
+            obj2 = ['<span class="count"></span>',order.name,order.startTime,order.endTime,'<span class="label label-warning">'+order.status+'</span>','<img height="125" width="125" src='+ order.image +'></img>','<a data-toggle="modal" data-target="#update-modal" class="btn btn-success updateData" data-id="'+index+'">Update</a>\
         		<a data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="'+index+'">Reject</a>'];
             obj.push(obj2);
         }

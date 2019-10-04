@@ -69,7 +69,7 @@
       </div>
       <div class="row">
         <div class="sigle-service col-lg-6 col-md-6">
-          <span class="lnr lnr-rocket"></span>
+          <span class="lnr lnr-paw"></span>
           <h4>Penitipan Hewan</h4>
           <p>
             Selagi sibuk dengan pekerjaan anda, dan peliharaan anda tidak ada yang merawat? Kami bersedia menjadi tempat
@@ -77,7 +77,7 @@
           </p>
         </div>
         <div class="sigle-service col-lg-6 col-md-6">
-          <span class="lnr lnr-magic-wand"></span>
+          <span class="lnr lnr-heart-pulse"></span>
           <h4>Perawatan</h4>
           <p>
             Hewan peliharaan anda akan mendapatkan perawatan khusus sesuai permintaan anda.
@@ -227,76 +227,6 @@
   </section>
   <!-- End testimonial Area -->
 
-
-  <!-- start blog Area -->
-  <section class="blog-area section-gap" id="blog">
-    <div class="container">
-      <div class="row d-flex justify-content-center">
-        <div class="menu-content pb-70 col-lg-8">
-          <div class="title text-center">
-            <h1 class="mb-10">Latest From Our Blog</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-md-6 single-blog">
-          <img class="img-fluid" src="img/b1.jpg" alt="">
-          <p class="date">10 Jan 2018</p>
-          <h4><a href="#">Addiction When Gambling
-              Becomes A Problem</a></h4>
-          <p>
-            inappropriate behavior ipsum dolor sit amet, consectetur.
-          </p>
-          <div class="meta-bottom d-flex justify-content-between">
-            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 single-blog">
-          <img class="img-fluid" src="img/b2.jpg" alt="">
-          <p class="date">10 Jan 2018</p>
-          <h4><a href="#">Addiction When Gambling
-              Becomes A Problem</a></h4>
-          <p>
-            inappropriate behavior ipsum dolor sit amet, consectetur.
-          </p>
-          <div class="meta-bottom d-flex justify-content-between">
-            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 single-blog">
-          <img class="img-fluid" src="img/b3.jpg" alt="">
-          <p class="date">10 Jan 2018</p>
-          <h4><a href="#">Addiction When Gambling
-              Becomes A Problem</a></h4>
-          <p>
-            inappropriate behavior ipsum dolor sit amet, consectetur.
-          </p>
-          <div class="meta-bottom d-flex justify-content-between">
-            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 single-blog">
-          <img class="img-fluid" src="img/b4.jpg" alt="">
-          <p class="date">10 Jan 2018</p>
-          <h4><a href="#">Addiction When Gambling
-              Becomes A Problem</a></h4>
-          <p>
-            inappropriate behavior ipsum dolor sit amet, consectetur.
-          </p>
-          <div class="meta-bottom d-flex justify-content-between">
-            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end blog Area -->
 
 
   <!-- start footer Area -->
