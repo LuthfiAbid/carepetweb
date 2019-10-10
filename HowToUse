@@ -1,3 +1,0 @@
-How to instal project 
-1. open terminal and write " composer install " or " composer update "
-2. run project with write one terminal " php artisan serve "
